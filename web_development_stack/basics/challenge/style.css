@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#ingredients{
+    background-color: green;
+    color: white;
+}
+
+#directions{
+    background-color: red;
+    color: white
+}

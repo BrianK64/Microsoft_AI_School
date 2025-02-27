@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        h1 {
+            color: grey
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft Logo" width="40" height="40" style="vertical-align: middle;">
+        <span>Microsoft AI School</span>
+    </h1>
+      
+    <h2>Web Development Stack</h2>
+
+    <p id="html">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML Logo" width="20" height="20" style="vertical-align: middle;">
+        <span><a href="../basics/">html</a></span>
+
+    </p>
+
+    <p id="css">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS Logo" width="20" height="20" style="vertical-align: middle;">
+        <span>css</span>
+    </p>
+
+    <p id="javascript">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript Logo" width="20" height="20" style="vertical-align: middle;">
+        <span>javascript</span>
+    </p>
+
+    <button>Start</button>
+    <script src="button.js"></script>
+    <script>
+        let bg = document.querySelector("body");
+        let h2 = document.querySelector("h2");
+        bg.onclick = function(){
+            bg.style.backgroundColor = "black"
+            h2.style.color = "white"
+        }
+    </script>
+
+</body>
+</html>
