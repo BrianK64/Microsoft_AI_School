@@ -1,0 +1,36 @@
+.box1,
+.box2,
+.box3{
+    width: 400px;
+    border: 20px, solid, black;
+    padding: 20px;
+    margin: 20px;
+}
+.box3{
+    box-sizing: border-box;
+}
+.box4{
+    box-sizing:border-box;
+    width: 400px;
+    height: 200px;
+    border: 1px, solid, black;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 20px 20px 5px #eee;
+}
+div{
+    width: 400px;
+    border: 20px;
+    padding: 20px;
+    margin: 20px;
+}
+.box5{
+    border-style: dotted;
+}
+.box6{
+    border-style: inset;
+}
+.border-radius{
+    border: solid red 3px;
+    border-radius: 20px 20px 20px 20px;
+}

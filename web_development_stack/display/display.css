@@ -1,0 +1,19 @@
+#container{
+    background-color: lightblue;
+    padding: 1px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.box{
+    background-color: lightpink;
+    border: 1px solid white;
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

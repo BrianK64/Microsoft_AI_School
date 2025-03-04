@@ -1,0 +1,45 @@
+*{
+    margin: 0px;
+}
+
+#main-container{
+    /* background-color: #001E44; */
+    background-color: #4B9CD3;
+    padding: 20px;
+    display: inline-block;
+}
+
+.container{
+    background-color: white;
+    padding: 15px;
+}
+
+.top{
+    margin-bottom: 20px;
+}
+
+ul{
+    list-style-type: circle;
+}
+
+a{
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+[href="https://www.w3schools.com/"]:hover{
+    color: #4CAF50;
+}
+
+[href="https://www.geeksforgeeks.org/"]:hover{
+    color: #43A047;
+}
+
+a:active{
+    color: #001E44;
+}
+
+a:visited{
+    color: #001E44;
+}
