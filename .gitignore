@@ -1,1 +1,4 @@
-Azure_OpenAI/openai.ipynb
+Azure_OpenAI/chatbot/.env
+Azure_OpenAI/chatbot/openai.ipynb
+Azure_OpenAI/image/.env
+Azure_OpenAI/image/dall_e_3.ipynb
