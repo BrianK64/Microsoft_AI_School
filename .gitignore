@@ -3,3 +3,4 @@ Azure_OpenAI/chatbot/openai.ipynb
 Azure_OpenAI/image/.env
 Azure_OpenAI/image/dall_e_3.ipynb
 Azure_OpenAI/search/.env
+Azure_OpenAI/recommendation_engine/.env
