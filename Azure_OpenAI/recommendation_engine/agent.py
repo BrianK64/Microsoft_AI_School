@@ -14,7 +14,7 @@ AI_SEARCH_API_KEY = os.getenv("AI_SEARCH_API_KEY")
 AI_SEARCH_INDEX = os.getenv("AI_SEARCH_INDEX")
 AI_SEARCH_SEMANTIC = os.getenv("AI_SEARCH_SEMANTIC")
 
-def search(prompt):
+def Agent(prompt):
 
     # endpoint
     endpoint = API_ENDPOINT
