@@ -19,7 +19,7 @@ def Agent(prompt):
     # endpoint
     endpoint = API_ENDPOINT
 
-    # method: POSt
+    # method: POST
 
     # headers: includes key
     headers = {
@@ -32,26 +32,17 @@ def Agent(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": "You are an AI assistant providing personalized recommendations for movies and TV shows available on Netflix by analyzing the user's preferences (genres, casts, directors). Ensure responses include the description, director, cast, genre, rating, and release year to make suggestions friendly and engaging yet concise. Also make sure to cite references."
-                    }
-                ]
+                "content": "You are an AI assistant providing personalized recommendations for movies and TV shows available on Netflix by analyzing the user's preferences (genres, casts, directors). Ensure responses include the description, director, cast, genre, rating, and release year to make suggestions friendly and engaging yet concise. Also make sure to cite references."
+
             },
             {
                 "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": prompt
-                    }
-                ]
+                "content": prompt
             }
         ],
         "temperature": 0.7,
         "top_p": 0.95,
-        "max_tokens": 800,
+        "max_tokens": 2000,
         "data_sources": [
             {
                 "type": "azure_search",
@@ -85,10 +76,10 @@ def Agent(prompt):
         role = message["role"]
         content = message["content"]
 
-        # citations = response_json["choices"][0]["message"]["context"]["citations"]
-        # references = []
-        # for citation in citations:
-        #     references.append(citation["content"])
+        citations = response_json["choices"][0]["message"]["context"]["citations"]
+        references = []
+        for citation in citations:
+            references.append(citation["content"])
         # #content_md = display(Markdown(content))
 
         # content = content + "\n\nReferences\n\n"
@@ -103,14 +94,17 @@ def Agent(prompt):
         #     for i, ref in enumerate(references):
         #         file.write(f"{i+1}. {ref}")
 
-        return content
+        return content, references
     
     else:
         return response
 
 if __name__ == "__main__":
     prompt = "I want to watch an action movie featuring Dwayne Johnson"
-    print(search(prompt))
+    content, references = Agent(prompt)
+    print(content)
+    for ref in references:
+        print(ref)
     
     # if search(prompt):
     #     print("AI response has been saved as a markdown file in the current working dirrectory.")
