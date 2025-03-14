@@ -14,12 +14,12 @@ with gr.Blocks() as demo:
 
     # Define the main page (page_main)
     with gr.Column(visible=False) as page_main:
-        gr.Markdown("# 🎬NETFLIX 추천 시스템✨")
+        gr.Markdown("# 🎬NETFLIX Recommendation System✨")
 
         greeting = [
             {
                 "role": "assistant",
-                "content": "안녕하세요! Netflix에서 영화와 시리즈를 볼 준비가 되셨나요?🎥🍿 유저의 취향과 기분에 맞게 완벽한 작품을 추천해드립니다.✨ 함께 시작해볼까요?🚀🔥"
+                "content": "Hey there! Ready to find your next binge-worthy show or movie?🎥🍿 Tell me what you're in the mood for - thrilling action, heartwarming romance, laugh-out-loud comedy, or something totally unpexted!✨ I've got some awesome recommendations just for you. Let's dive in!🚀🔥"
             }
         ]
 
