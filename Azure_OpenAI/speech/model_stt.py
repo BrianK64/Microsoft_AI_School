@@ -21,7 +21,7 @@ class Agent():
         self.API_TEXT_TO_SPEECH_KEY = os.getenv("API_TEXT_TO_SPEECH_KEY")
 
 
-    def speech_to_text(self, audio_path):
+    def speech_to_text(self, audio_path, to_lang="en-US"):
 
 
         headers = {
@@ -32,11 +32,15 @@ class Agent():
         with open(audio_path, "rb") as audio:
             audio_data = audio.read()
 
-        response = requests.POST(self.API_SPEECH_TO_TEXT_ENDPOINT, headers=headers, data=audio_data)
-        print(response.status_code, response.text)
-        #body = { }
+        response = requests.post(self.API_SPEECH_TO_TEXT_ENDPOINT, headers=headers, data=audio_data)
+        if response.status_code == 200:
 
-        return
+            response_json = response.json()
+            text = response_json["DisplayText"]
+            return text
+        
+        else:
+            return f"Error {response.status_code}: {response.reason}"
     
 
     def text_to_speech(self, text):
@@ -52,4 +56,5 @@ class Agent():
 
 if __name__ == "__main__":
     agent = Agent()
-    agent.speech_to_text("audio1.wav")
+    response = agent.speech_to_text("Azure_OpenAI/speech/audio1.wav")
+    print(response)
