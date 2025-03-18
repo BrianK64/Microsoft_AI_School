@@ -7,4 +7,4 @@ def main():
         with gr.Column():
             gr.Markdown("## Speech to Text")
 
-            input_mic = 
+            input_mic = gr.Audio(label="Mic", sources = "microphone", type = "filepath", show_download_button = True)
