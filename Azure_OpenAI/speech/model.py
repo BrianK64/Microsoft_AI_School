@@ -12,6 +12,10 @@ class Agent():
         # load environment variables
         load_dotenv()
 
+        # gpt-4o-mini credentials
+        self.API_OPENAI_ENDPOINT = os.getenv("API_OPENAI_ENDPOINT")
+        self.API_OPENAI_KEY = os.getenv("API_OPENAI_KEY")
+
         # speech-to-text credentials
         self.API_SPEECH_TO_TEXT_ENDPOINT = os.getenv("API_SPEECH_TO_TEXT_ENDPOINT")
         self.API_SPEECH_TO_TEXT_KEY = os.getenv("API_SPEECH_TO_TEXT_KEY")
@@ -19,6 +23,10 @@ class Agent():
         # Text-to-speech credentials
         self.API_TEXT_TO_SPEECH_ENDPOINT = os.getenv("API_TEXT_TO_SPEECH_ENDPOINT")
         self.API_TEXT_TO_SPEECH_KEY = os.getenv("API_TEXT_TO_SPEECH_KEY")
+
+    def gpt_4o_mini(self):
+        return
+
 
 
     def speech_to_text(self, audio_path, to_lang="en-US"):
