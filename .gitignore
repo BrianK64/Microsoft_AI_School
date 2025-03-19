@@ -10,3 +10,5 @@ Azure_OpenAI/recommendation_engine/.env
 Azure_OpenAI/recommendation_engine/__pycache__/agent.cpython-313.pyc
 
 Azure_OpenAI/speech/.env
+
+Azure_OpenAI/document_intelligence/.env
