@@ -48,12 +48,43 @@ class Agent():
             return None
         
 
-    def PII_detection(self, language="en", text="This is a sample text"):   # Personally Identifiable Information (PII) detection
+    def PII_detection(self, language="en", text="This is a sample text."):   # Personally Identifiable Information (PII) detection
 
         request_id = str(uuid.uuid4())
 
         body = {
             "kind": "PiiEntityRecognition",
+            "parameters": {
+                "modelVersion": "latest"
+            },
+            "analysisInput":{
+                "documents":[
+                    {
+                        "id": request_id,
+                        "language":language,
+                        "text": text
+                    }
+                ]
+            }
+        }
+
+        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+
+        if response.status_code == 200:
+            response_json = response.json()
+            return response_json
+        
+        else:
+            print(f"error {response.status_code}: {response.reason}")
+            return None
+        
+
+    def key_phrase_extraction(self, language="en", text="This is a sample text."):
+
+        request_id = str(uuid.uuid4())
+
+        body = {
+            "kind": "KeyPhraseExtraction",
             "parameters": {
                 "modelVersion": "latest"
             },
