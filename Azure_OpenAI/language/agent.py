@@ -10,6 +10,7 @@ class Agent():
         load_dotenv()
 
         self.API_LANGUAGE_ENDPOINT = os.getenv("API_LANGUAGE_ENDPOINT")
+        self.API_LANGUAGE_CLU_ENDPOINT = os.getenv("API_LANGUAGE_CLU_ENDPOINT")
         self.API_LANGUAGE_KEY = os.getenv("API_LANGUAGE_KEY")
         self.headers = {
             "Content-Type": "application/json",
@@ -173,7 +174,45 @@ class Agent():
         
 
     def clu(self, text="This is a sample text."):   # Conversational Language Understanding
-        return
+        
+        body = {
+            "kind": "Conversation",
+            "analysisInput": {
+                "conversationItem": {
+                    "id": "12345",
+                    "text": text,
+                    "modality": "text",
+                    "language": "en",
+                    "participantId": "user123"
+                }
+            },
+            "parameters": {
+                "projectName": "Conversational-Language-Understanding-demo",
+                "verbose": True,
+                "deploymentName": "clu-v1",
+                "stringIndexType": "TextElement_V8"
+            }
+        }
+
+        response = requests.post(self.API_LANGUAGE_CLU_ENDPOINT, headers = self.headers, json = body)
+
+        if response.status_code == 200:
+            response_json = response.json()
+
+            """
+            response_json
+                result
+                    prediction
+                        topIntent
+                        intents
+                        entities
+            """
+            return response_json
+
+        
+        else:
+            print(f"error {response.status_code}: {response.reason}")
+            return None
 
 if __name__ == "__main__":
     agent = Agent()
@@ -197,3 +236,7 @@ if __name__ == "__main__":
     french_text = "Bonjour. Cette phrase est en français. Merci d\’utiliser notre service."
     language_detection_response = agent.language_detection(text = french_text)
     print("\n", language_detection_response)
+
+    clu_text = "add flag to the email John just sent to me"
+    clu_response = agent.clu(text = clu_text)
+    print("\n", clu_response)
