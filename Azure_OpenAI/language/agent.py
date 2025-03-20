@@ -110,6 +110,38 @@ class Agent():
             return None
         
 
+    def sentiment_analysis(self, language="en", text="This is a sample text."):
+
+        request_id = str(uuid.uuid4())
+
+        body = {
+            "kind": "SentimentAnalysis",
+            "parameters": {
+                "modelVersion": "latest",
+                "opinionMining": "True"
+            },
+            "analysisInput": {
+                "documents": [
+                    {
+                        "id": request_id,
+                        "language": language,
+                        "text": text
+                    }
+                ]
+            }
+        }
+
+        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+
+        if response.status_code == 200:
+            response_json = response.json()
+            return response_json
+        
+        else:
+            print(f"error {response.status_code}: {response.reason}")
+            return None
+
+
 if __name__ == "__main__":
     agent = Agent()
     NER_text = "Named Entity Recognition (NER) is one of the features offered by Azure AI Language, a collection of machine learning and AI algorithms in the cloud for developing intelligent applications that involve written language. The NER feature can identify and categorize entities in unstructured text. For example: people, places, organizations, and quantities. The prebuilt NER feature has a preset list of recognized entities. The custom NER feature allows you to train the model to recognize specialized entities specific to your use case."
@@ -123,3 +155,7 @@ if __name__ == "__main__":
     PII_text = "Call our office at 312-555-1234, or send an email to support@contoso.com"
     PII_response = agent.PII_detection(text = PII_text)
     print("\n", PII_response)
+
+    sentiment_text = "The food and service were unacceptable. The concierge was nice, however."
+    sentiment_analysis_response = agent.sentiment_analysis(text = sentiment_text)
+    print("\n", sentiment_analysis_response)
