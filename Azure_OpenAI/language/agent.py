@@ -140,7 +140,37 @@ class Agent():
         else:
             print(f"error {response.status_code}: {response.reason}")
             return None
+        
 
+    def language_detection(self, text="This is a sample text."):
+
+        request_id = str(uuid.uuid4())
+
+        body = {
+            "kind": "LanguageDetection",
+            "parameters": {
+                "modelVersion": "latest"
+            },
+            "analysisInput": {
+                "documents": [
+                    {
+                        "id": request_id,
+                        "text": text
+                    }
+                ]
+            }
+        }
+
+        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+
+        if response.status_code == 200:
+            response_json = response.json()
+            return response_json
+        
+        else:
+            print(f"error {response.status_code}: {response.reason}")
+            return None
+        
 
 if __name__ == "__main__":
     agent = Agent()
@@ -159,3 +189,8 @@ if __name__ == "__main__":
     sentiment_text = "The food and service were unacceptable. The concierge was nice, however."
     sentiment_analysis_response = agent.sentiment_analysis(text = sentiment_text)
     print("\n", sentiment_analysis_response)
+
+    english_text = "This is a document written in English."
+    french_text = "Bonjour. Cette phrase est en français. Merci d\’utiliser notre service."
+    language_detection_response = agent.language_detection(text = french_text)
+    print("\n", language_detection_response)
