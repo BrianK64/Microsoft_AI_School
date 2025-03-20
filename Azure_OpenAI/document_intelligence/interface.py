@@ -19,7 +19,7 @@ def main():
         for block in block_list:
             line_color = random_color()
             polygon_list = block["boundingRegions"][0]["polygon"]
-            points = [[polygon_list[i], polygon_list[i + 1]] for i in range(0, len(polygon_list), 2)]
+            points = [(polygon_list[i], polygon_list[i + 1]) for i in range(0, len(polygon_list), 2)]
             content = block["content"]
 
             draw.polygon(points, outline = line_color, width = 2)
