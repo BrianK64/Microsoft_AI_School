@@ -9,7 +9,7 @@ class Agent():
 
         load_dotenv()
 
-        self.API_LANGUAGE_ENDPINT = os.getenv("API_LANGUAGE_ENDPOINT")
+        self.API_LANGUAGE_ENDPOINT = os.getenv("API_LANGUAGE_ENDPOINT")
         self.API_LANGUAGE_KEY = os.getenv("API_LANGUAGE_KEY")
         self.headers = {
             "Content-Type": "application/json",
@@ -37,7 +37,7 @@ class Agent():
             }
         }
 
-        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+        response = requests.post(self.API_LANGUAGE_ENDPOINT, headers = self.headers, json = body)
 
         if response.status_code == 200:
             response_json = response.json()
@@ -68,7 +68,7 @@ class Agent():
             }
         }
 
-        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+        response = requests.post(self.API_LANGUAGE_ENDPOINT, headers = self.headers, json = body)
 
         if response.status_code == 200:
             response_json = response.json()
@@ -99,7 +99,7 @@ class Agent():
             }
         }
 
-        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+        response = requests.post(self.API_LANGUAGE_ENDPOINT, headers = self.headers, json = body)
 
         if response.status_code == 200:
             response_json = response.json()
@@ -131,7 +131,7 @@ class Agent():
             }
         }
 
-        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+        response = requests.post(self.API_LANGUAGE_ENDPOINT, headers = self.headers, json = body)
 
         if response.status_code == 200:
             response_json = response.json()
@@ -161,7 +161,7 @@ class Agent():
             }
         }
 
-        response = requests.post(self.API_LANGUAGE_ENDPINT, headers = self.headers, json = body)
+        response = requests.post(self.API_LANGUAGE_ENDPOINT, headers = self.headers, json = body)
 
         if response.status_code == 200:
             response_json = response.json()
@@ -171,6 +171,9 @@ class Agent():
             print(f"error {response.status_code}: {response.reason}")
             return None
         
+
+    def clu(self, text="This is a sample text."):   # Conversational Language Understanding
+        return
 
 if __name__ == "__main__":
     agent = Agent()
