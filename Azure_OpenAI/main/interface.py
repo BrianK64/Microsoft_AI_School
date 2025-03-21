@@ -33,9 +33,10 @@ def main():
             
             
             query_stt_audio = gr.Audio(sources = "microphone", type = "filepath", show_download_button = False)
-            query_stt_text = ""
-            #query_stt_audio.change(fn = set_audio, inputs = [query_stt_audio], outputs = [query_stt_text])
+            query_stt_text = gr.Textbox(visible = False)
+            query_stt_audio.change(fn = set_audio, inputs = [query_stt_audio], outputs = [query_stt_text])
             query_tts_text = gr.Textbox()
+            
             deactivation_button = gr.Button("deactivate")
             
 
