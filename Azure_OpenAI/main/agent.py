@@ -94,6 +94,36 @@ class Agent():
             return None
         
 
+    def text_to_speech(self, text):
+
+        headers = {
+            "Ocp-Apim-Subscription-Key": self.API_TEXT_TO_SPEECH_KEY,
+            "Content-Type": "application/ssml+xml",
+            "X-Microsoft-OutputFormat": "riff-24khz-16bit-mono-pcm"
+        }
+
+        body = f"""
+        <speak version='1.0' xml:lang='en-US'>
+            <voice name='en-US-AvaMultilingualNeural'>
+                <prosody rate='0%'>
+                    {text}
+                </prosody>
+            </voice>
+        </speak>
+        """
+
+        response = requests.post(self.API_TEXT_TO_SPEECH_ENDPOINT, headers = headers, data = body)
+
+        if response.status_code == 200:
+            file_path = "Azure_OpenAI/speech/response_audio.wav"
+            with open(file_path, "wb") as audio_file:
+                audio_file.write(response.content)
+            return file_path
+        
+        else:
+            return f"Error {response.status_code}: {response.reason}"
+        
+
 if __name__ == "__main__":
     agent = Agent()
     prompt = "Hi Jarvis"
