@@ -23,6 +23,7 @@ class Agent():
         self.API_TEXT_TO_SPEECH_ENDPOINT = os.getenv("API_TEXT_TO_SPEECH_ENDPOINT")
         self.API_TEXT_TO_SPEECH_KEY = os.getenv("API_TEXT_TO_SPEECH_KEY")
 
+
     def gpt_4o_mini(self, prompt):
         
         headers = {
@@ -64,6 +65,29 @@ class Agent():
             role = message["role"]
             content = message["content"]
             return content
+        
+        else:
+            print(f"Error {response.status_code}: {response.reason}")
+            return None
+        
+    
+    def speech_to_text(self, audio_path, to_lang="en-US"):
+
+
+        headers = {
+            "Ocp-Apim-Subscription-Key": self.API_SPEECH_TO_TEXT_KEY,
+            "Content-Type": "audio/wav"
+        }
+
+        with open(audio_path, "rb") as audio:
+            audio_data = audio.read()
+
+        response = requests.post(self.API_SPEECH_TO_TEXT_ENDPOINT, headers=headers, data=audio_data)
+        if response.status_code == 200:
+
+            response_json = response.json()
+            text = response_json["DisplayText"]
+            return text
         
         else:
             print(f"Error {response.status_code}: {response.reason}")
