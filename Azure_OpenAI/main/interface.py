@@ -5,8 +5,16 @@ from agent import Agent
 agent = Agent()
 
 
-def activate():
+def toggle():
     return gr.update(visible=True), gr.update(visible=False)
+
+
+def activate():
+    return gr.update(visible = True)
+
+
+def deactivate():
+    return gr.update(visible = False)
 
 
 def set_audio(audio_path):
@@ -24,30 +32,27 @@ def main():
         
             Jarvis_deactivated = gr.Image("Azure_OpenAI/main/jarvis_deactivated.jpg", interactive = True)
             activation_button = gr.Button("activate")
-
-            activation_button.click(fn = activate, inputs = [], outputs = [])
-
         
         with gr.Column(visible = False) as activated:
             Jarvis_activated = gr.Image("Azure_OpenAI/main/jarvis_activated.gif", interactive = False)
             Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = False)
             
-            # button: mic input, visible
-            # -> textbox: text output, invisible
-            # -> chatbot: text input, invisible
-            # -> chatbot: text output, invisible
-            # -> audio: response, invisible
-            
-            #query_stt_audio = gr.Audio(sources = "microphone", type = "filepath", show_download_button = False)
-            #query_stt_text = gr.Textbox(visible = False)
-            #query_stt_audio.change(fn = set_audio, inputs = [query_stt_audio], outputs = [query_stt_text])
-            #query_tts_text = gr.Textbox()
+            with gr.Row():
+                # button: mic input, visible
+                query_button = gr.Button("🔊")
 
+            stt_audio = gr.Audio(sources = "microphone", type = "filepath", show_download_button = False, visible = False)
+            stt_response = gr.Textbox(visible = True)
             deactivation_button = gr.Button("deactivate")
             
 
-        activation_button.click(fn = activate, inputs = [], outputs = [activated, deactivated])
-        deactivation_button.click(fn = activate, inputs = [], outputs = [deactivated, activated])
+        # J.A.R.V.I.S speech processing
+        query_button.click(fn = activate, inputs = [], outputs = [stt_audio]) #js="""() => {const audioComp = document.querySelector('input[type="file"]'); if (audioComp) { audioComp.click(); } }""")
+        stt_audio.change(fn = set_audio, inputs = [stt_audio], outputs = [stt_response]).then(fn = deactivate, inputs = [], outputs = [stt_audio])
+
+        # J.A.R.V.I.S activation and deactivation
+        activation_button.click(fn = toggle, inputs = [], outputs = [activated, deactivated])
+        deactivation_button.click(fn = toggle, inputs = [], outputs = [deactivated, activated])
 
     return JARVIS
 
