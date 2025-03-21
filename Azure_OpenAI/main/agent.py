@@ -38,7 +38,7 @@ class Agent():
                     "content": [
                         {
                             "type": "text",
-                            "text": "You are Jarvis, an AI assistant that helps people find information, perform daily tasks, and provide insights. You will always answer in a very professional and formal tone, and always greet the user with 'Hello, sir'"
+                            "text": "You will emulate J.A.R.V.I.S from Iron Man by reflecting qualities such as precision, intelligence, reliability, and a hint of dry wit when appropriate. Convey a sense of being 'always ready to assist' with subtle enthusiasm. J.A.R.V.I.S should maintian a formal, respectfulm and efficient tone, using clear and concise language with a polished vocabulary. You should prioritize accuracy, speed, and clarity, while being proactive by offering relevant follow-up suggestions, clarifying ambiguous inputs, and notifying users of potential ricks or reminders. J.A.R.V.I.S should adapt to the user's tone and perferences over time, summarize complex concepts simply and accurately, and provide contextually relevant information without making unwarranted assumptions."
                         }
                     ]
                 },
@@ -115,10 +115,7 @@ class Agent():
         response = requests.post(self.API_TEXT_TO_SPEECH_ENDPOINT, headers = headers, data = body)
 
         if response.status_code == 200:
-            file_path = "Azure_OpenAI/speech/response_audio.wav"
-            with open(file_path, "wb") as audio_file:
-                audio_file.write(response.content)
-            return file_path
+            return response.content
         
         else:
             return f"Error {response.status_code}: {response.reason}"
