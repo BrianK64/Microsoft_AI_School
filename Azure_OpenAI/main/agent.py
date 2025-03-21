@@ -115,6 +115,7 @@ class Agent():
         response = requests.post(self.API_TEXT_TO_SPEECH_ENDPOINT, headers = headers, data = body)
 
         if response.status_code == 200:
+            return response.content
             file_path = "Azure_OpenAI/speech/response_audio.wav"
             with open(file_path, "wb") as audio_file:
                 audio_file.write(response.content)
