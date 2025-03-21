@@ -116,10 +116,6 @@ class Agent():
 
         if response.status_code == 200:
             return response.content
-            file_path = "Azure_OpenAI/speech/response_audio.wav"
-            with open(file_path, "wb") as audio_file:
-                audio_file.write(response.content)
-            return file_path
         
         else:
             return f"Error {response.status_code}: {response.reason}"
