@@ -89,8 +89,9 @@ class Agent():
             return text
         
         else:
-            return f"Error {response.status_code}: {response.reason}"
-    
+            #return f"Error {response.status_code}: {response.reason}"
+            print(f"Error {response.status_code}: {response.reason}")
+            return None
 
     def text_to_speech(self, text):
 
