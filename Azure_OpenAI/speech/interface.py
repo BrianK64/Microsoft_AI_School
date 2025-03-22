@@ -1,6 +1,8 @@
 import gradio as gr
+from agent import Agent
 
 def main():
+    agent = Agent()
     with gr.Blocks() as page_main:
         gr.Markdown("# Azure AI Speech Service")
 
@@ -8,7 +10,11 @@ def main():
             return
 
         def update_audio_source(audio_path):
-            return
+            if audio_path:
+                text = agent.speech_to_text(audio_path)
+                return text
+            else:
+                return None
         
         def tts_click(text):
             return
