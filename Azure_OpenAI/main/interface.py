@@ -41,16 +41,15 @@ def main():
                 # button: mic input, visible
                 query_button = gr.Button("🔊")
 
-            # hold off #stt_audio = gr.Audio(sources = "microphone", type = "filepath", show_download_button = False, visible = False)
-            input_mic = gr.Audio(label = "Mic", sources = "microphone", type = "filepath", show_download_button= True)
+            stt_audio = gr.Audio(sources = "microphone", type = "filepath", show_download_button = False, visible = False)
             stt_response = gr.Textbox(interactive = False, visible = True)
-            input_mic.change(fn = set_audio, inputs = [input_mic], outputs = [stt_response])
+            
             deactivation_button = gr.Button("deactivate")
             
 
         # J.A.R.V.I.S speech processing
-        # hold off #query_button.click(fn = activate, inputs = [], outputs = [stt_audio]) #js="""() => {const audioComp = document.querySelector('input[type="file"]'); if (audioComp) { audioComp.click(); } }""")
-        # hold off #stt_audio.change(fn = set_audio, inputs = [stt_audio], outputs = [stt_response]).then(fn = deactivate, inputs = [], outputs = [stt_audio])
+        query_button.click(fn = activate, inputs = [], outputs = [stt_audio]) #js="""() => {const audioComp = document.querySelector('input[type="file"]'); if (audioComp) { audioComp.click(); } }""")
+        stt_audio.change(fn = set_audio, inputs = [stt_audio], outputs = [stt_response]).then(fn = deactivate, inputs = [], outputs = [stt_audio])
 
         # J.A.R.V.I.S activation and deactivation
         activation_button.click(fn = toggle, inputs = [], outputs = [activated, deactivated])
