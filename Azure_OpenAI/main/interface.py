@@ -96,7 +96,7 @@ def main():
         # J.A.R.V.I.S activation and deactivation
         activation_button.click(fn = toggle, inputs = [], outputs = [loading, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio]).then(fn = load, inputs = [], outputs = [activated, loading])
         #activation_button.click(fn = toggle, inputs = [], outputs = [activated, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio])
-        deactivation_button.click(fn = toggle, inputs = [], outputs = [deactivated, activated])
+        deactivation_button.click(fn = toggle, inputs = [], outputs = [deactivated, activated]).then(fn = set_audio, inputs = [], outputs = [tts_audio])
 
     return JARVIS
 
