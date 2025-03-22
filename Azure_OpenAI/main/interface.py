@@ -12,7 +12,7 @@ def toggle():
     return gr.update(visible=True), gr.update(visible=False)
 
 
-def load():
+def load2():
     time.sleep(18)
     return gr.update(visible=True), gr.update(visible=False)
 
@@ -67,12 +67,11 @@ def main():
             activation_button = gr.Button("activate")
 
         with gr.Column(visible = False) as loading:
-            Jarvis_loading = gr.Markdown("# LOADING J.A.R.V.I.S")
-            greeting_textbox = gr.Textbox(label = "greeting", interactive = False)
-            tts_audio = gr.Audio(interactive = False, autoplay = True, visible = True)
+            Jarvis_loading = gr.Image("Azure_OpenAI/main/jarvis_loading1.gif", interactive = False)
+            greeting_textbox = gr.Textbox(label = "greeting", interactive = False, visible = False)
+            tts_audio = gr.Audio(interactive = False, autoplay = True, visible = False)
         
         with gr.Column(visible = False) as activated:
-
 
             Jarvis_activated = gr.Image("Azure_OpenAI/main/jarvis_activated.gif", interactive = False)
             #greeting_textbox = gr.Textbox(label = "greeting", interactive = False)
@@ -94,7 +93,7 @@ def main():
         stt_audio.change(fn = set_audio, inputs = [stt_audio], outputs = [stt_response]).then(fn = deactivate, inputs = [], outputs = [stt_audio])
 
         # J.A.R.V.I.S activation and deactivation
-        activation_button.click(fn = toggle, inputs = [], outputs = [loading, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio]).then(fn = load, inputs = [], outputs = [activated, loading])
+        activation_button.click(fn = toggle, inputs = [], outputs = [loading, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio]).then(fn = load2, inputs = [], outputs = [activated, loading])
         #activation_button.click(fn = toggle, inputs = [], outputs = [activated, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio])
         deactivation_button.click(fn = toggle, inputs = [], outputs = [deactivated, activated]).then(fn = set_audio, inputs = [], outputs = [tts_audio])
 
