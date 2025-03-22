@@ -1,4 +1,6 @@
 import gradio as gr
+from datetime import datetime
+import random
 from agent import Agent
 
 
@@ -7,6 +9,23 @@ agent = Agent()
 
 def toggle():
     return gr.update(visible=True), gr.update(visible=False)
+
+
+def get_greeting():
+    current_time = datetime.now()
+
+    if current_time.hour < 12 and current_time.hour > 6:
+        message = "Good morning, Sir"
+
+    elif current_time.hour >= 12 and current_time.hour < 18:
+        message = "Good afternoon, Sir"
+
+    else:
+        message = "Good evening, Sir"
+
+    greeting_content = random.choice([message, "Welcome back, Sir"])
+
+    return greeting_content
 
 
 def activate():
@@ -34,8 +53,10 @@ def main():
             activation_button = gr.Button("activate")
         
         with gr.Column(visible = False) as activated:
+
+
             Jarvis_activated = gr.Image("Azure_OpenAI/main/jarvis_activated.gif", interactive = False)
-            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = False)
+            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = True)
             
             with gr.Row():
                 # button: mic input, visible
