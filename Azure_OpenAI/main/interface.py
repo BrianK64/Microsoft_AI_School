@@ -1,6 +1,7 @@
 import gradio as gr
 from datetime import datetime
 import random
+import time
 from agent import Agent
 
 
@@ -8,6 +9,11 @@ agent = Agent()
 
 
 def toggle():
+    return gr.update(visible=True), gr.update(visible=False)
+
+
+def load():
+    time.sleep(18)
     return gr.update(visible=True), gr.update(visible=False)
 
 
@@ -23,8 +29,8 @@ def get_greeting():
     else:
         message = "Good evening, Sir"
 
-    greeting_content = random.choice([message, "Welcome back, Sir"])
-
+    greeting_content = random.choice([message, "Welcome back, Sir", "I am Jarvis, a virtual artificial intelligence, and I'm here to assist you with a variety of tasks as best as I can, 24 hours a day, 7 days a week. Importing all Preferences from home interface. Systems are now fully operational."])
+    greeting_content = "I am Jarvis, a virtual artificial intelligence, and I'm here to assist you with a variety of tasks as best as I can. 24 hours a day, 7 days a week. Importing all Preferences from home interface. Systems are now fully operational."
     return greeting_content
 
 
@@ -42,6 +48,14 @@ def set_audio(audio_path):
         return text
     else:
         return None
+    
+
+def get_audio(text):
+    if text:
+        audio_response = agent.text_to_speech(text = text)
+        return audio_response
+    else:
+        return None
 
 
 def main():
@@ -51,12 +65,19 @@ def main():
         
             Jarvis_deactivated = gr.Image("Azure_OpenAI/main/jarvis_deactivated.jpg", interactive = True)
             activation_button = gr.Button("activate")
+
+        with gr.Column(visible = False) as loading:
+            Jarvis_loading = gr.Markdown("# LOADING J.A.R.V.I.S")
+            greeting_textbox = gr.Textbox(label = "greeting", interactive = False)
+            tts_audio = gr.Audio(interactive = False, autoplay = True, visible = True)
         
         with gr.Column(visible = False) as activated:
 
 
             Jarvis_activated = gr.Image("Azure_OpenAI/main/jarvis_activated.gif", interactive = False)
-            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = True)
+            #greeting_textbox = gr.Textbox(label = "greeting", interactive = False)
+            #tts_audio = gr.Audio(interactive = False, autoplay = True, visible = True)
+            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = False)
             
             with gr.Row():
                 # button: mic input, visible
@@ -73,7 +94,8 @@ def main():
         stt_audio.change(fn = set_audio, inputs = [stt_audio], outputs = [stt_response]).then(fn = deactivate, inputs = [], outputs = [stt_audio])
 
         # J.A.R.V.I.S activation and deactivation
-        activation_button.click(fn = toggle, inputs = [], outputs = [activated, deactivated])
+        activation_button.click(fn = toggle, inputs = [], outputs = [loading, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio]).then(fn = load, inputs = [], outputs = [activated, loading])
+        #activation_button.click(fn = toggle, inputs = [], outputs = [activated, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio])
         deactivation_button.click(fn = toggle, inputs = [], outputs = [deactivated, activated])
 
     return JARVIS

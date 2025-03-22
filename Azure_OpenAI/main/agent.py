@@ -101,10 +101,13 @@ class Agent():
             "Content-Type": "application/ssml+xml",
             "X-Microsoft-OutputFormat": "riff-24khz-16bit-mono-pcm"
         }
-
+        
+        # Closest voice to J.A.R.V.I.S from IronMan: 
+        # shout-out: en-GB-EthanNeural
+        # acceptable: en-GB-OllieMultilingualNeural, en-GB-OliverNeural
         body = f"""
         <speak version='1.0' xml:lang='en-US'>
-            <voice name='en-US-AvaMultilingualNeural'>
+            <voice name='en-GB-EthanNeural'>
                 <prosody rate='0%'>
                     {text}
                 </prosody>
