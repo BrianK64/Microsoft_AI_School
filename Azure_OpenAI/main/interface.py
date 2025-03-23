@@ -50,6 +50,10 @@ def set_audio(audio_path):
         return None
     
 
+def remove_audio():
+    return None
+    
+
 def get_audio(text):
     if text:
         audio_response = agent.text_to_speech(text = text)
@@ -94,10 +98,10 @@ def main():
             Jarvis_activated = gr.Image("Azure_OpenAI/main/jarvis_activated.gif", interactive = False)
             #greeting_textbox = gr.Textbox(label = "greeting", interactive = False)
             #tts_audio = gr.Audio(interactive = False, autoplay = True, visible = True)
-            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = True)
-            prompt_textbox = gr.Textbox(label="Prompt")
-            response_textbox = gr.Textbox(label = "Response as a text", interactive = False, visible = True)
-            response_audio = gr.Audio(interactive = False, autoplay = True, visible = True)
+            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = False)
+            prompt_textbox = gr.Textbox(label="Prompt", visible = False)
+            response_textbox = gr.Textbox(label = "Response as a text", interactive = False, visible = False)
+            response_audio = gr.Audio(interactive = False, autoplay = True, visible = False)
             
             with gr.Row():
                 # button: mic input, visible
@@ -111,7 +115,7 @@ def main():
 
         # J.A.R.V.I.S speech processing
         query_button.click(fn = activate, inputs = [], outputs = [stt_audio]) #js="""() => {const audioComp = document.querySelector('input[type="file"]'); if (audioComp) { audioComp.click(); } }""")
-        stt_audio.change(fn = set_audio, inputs = [stt_audio], outputs = [prompt_textbox]).then(fn = deactivate, inputs = [], outputs = [stt_audio]).then(fn = get_response, inputs = [prompt_textbox, Jarvis], outputs = [Jarvis, response_textbox, prompt_textbox]).then(fn = get_audio, inputs = [response_textbox], outputs = [tts_audio])#.then(fn = set_audio, inputs = [], outputs = [stt_audio])
+        stt_audio.change(fn = set_audio, inputs = [stt_audio], outputs = [prompt_textbox]).then(fn = deactivate, inputs = [], outputs = [stt_audio]).then(fn = get_response, inputs = [prompt_textbox, Jarvis], outputs = [Jarvis, response_textbox, prompt_textbox]).then(fn = get_audio, inputs = [response_textbox], outputs = [response_audio])#.then(fn = remove_audio, inputs = [], outputs = [stt_audio])
 
         # J.A.R.V.I.S activation and deactivation
         activation_button.click(fn = toggle, inputs = [], outputs = [loading, deactivated]).then(fn = get_greeting, inputs = [], outputs = [greeting_textbox]).then(fn = get_audio, inputs = [greeting_textbox], outputs = [tts_audio]).then(fn = load2, inputs = [], outputs = [activated, loading])
