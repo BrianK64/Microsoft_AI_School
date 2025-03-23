@@ -76,7 +76,8 @@ def main():
             Jarvis_activated = gr.Image("Azure_OpenAI/main/jarvis_activated.gif", interactive = False)
             #greeting_textbox = gr.Textbox(label = "greeting", interactive = False)
             #tts_audio = gr.Audio(interactive = False, autoplay = True, visible = True)
-            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = False)
+            Jarvis = gr.Chatbot(label = "J.A.R.V.I.S", type = "messages", visible = True)
+            prompt = gr.Textbox(label="Prompt")
             
             with gr.Row():
                 # button: mic input, visible
