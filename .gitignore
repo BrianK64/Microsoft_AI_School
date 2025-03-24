@@ -16,3 +16,5 @@ Azure_AI/document_intelligence/.env
 Azure_AI/language/.env
 
 Azure_AI/main/.env
+
+Azure_AI/vision/.env
