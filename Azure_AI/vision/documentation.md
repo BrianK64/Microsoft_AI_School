@@ -100,3 +100,8 @@ Here's a brief step-by-step walkthorugh for locating the credential information 
     - `KEY 1`: Primary authentication key.
     - `KEY 2`: Secondary (spare) authentication key.
     - `Endpoint`: The service endpoint URL for created region.
+
+
+## References
+[Call the Image Analysis 4.0 Anlyze API](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/how-to/call-analyze-image-40?tabs=csharp&pivots=programming-language-rest-api)\
+[What is Image Analysis](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview-image-analysis?tabs=4-0)
