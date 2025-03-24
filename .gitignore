@@ -1,18 +1,18 @@
-Azure_OpenAI/chatbot/.env
-Azure_OpenAI/chatbot/openai.ipynb
+Azure_AI/chatbot/.env
+Azure_AI/chatbot/openai.ipynb
 
-Azure_OpenAI/image/.env
-Azure_OpenAI/image/dall_e_3.ipynb
+Azure_AI/image/.env
+Azure_AI/image/dall_e_3.ipynb
 
-Azure_OpenAI/search/.env
+Azure_AI/search/.env
 
-Azure_OpenAI/recommendation_engine/.env
-Azure_OpenAI/recommendation_engine/__pycache__/agent.cpython-313.pyc
+Azure_AI/recommendation_engine/.env
+Azure_AI/recommendation_engine/__pycache__/agent.cpython-313.pyc
 
-Azure_OpenAI/speech/.env
+Azure_AI/speech/.env
 
-Azure_OpenAI/document_intelligence/.env
+Azure_AI/document_intelligence/.env
 
-Azure_OpenAI/language/.env
+Azure_AI/language/.env
 
-Azure_OpenAI/main/.env
+Azure_AI/main/.env
