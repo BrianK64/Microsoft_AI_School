@@ -17,8 +17,8 @@ class ImageAnalysisClient():
         self.API_VISION_VERSION = os.getenv("API_VISION_VERSION")
 
 
-    # Get the request URL from populated endpoint with query parameters
-    def get_endpoint(self, features, language = "en-US"):
+    # Get the HTTP request URL and query parameters
+    def get_endpoint(self, features, language, smartcrops_aspect_ratios):
 
         # Query Parameters
         query_params = {
@@ -27,21 +27,30 @@ class ImageAnalysisClient():
             "language": language
         }
 
-        API_POPULATED_VISION_ENDPOINT = "{}computervision/imageanalysis:analyze?api-version={}&features={}".format(self.API_VISION_ENDPOINT, self.API_VISION_VERSION, ','.join(features))
-        return API_POPULATED_VISION_ENDPOINT
+        if "smartCrops" in features:
+            query_params.update(
+                {
+                    "smartcrops-aspect-ratios": smartcrops_aspect_ratios
+                }
+            )
+
+        self.API_VISION_ENDPOINT = "{}computervision/imageanalysis:analyze".format(self.API_VISION_ENDPOINT)
+        return self.API_VISION_ENDPOINT, query_params
     
 
     # Configure HTTP request
-    def send_request(self, method, url, json):
+    def send_request(self, method, url, params, json):
+
+        isImageURL = True if isinstance(json, dict) else False
 
         headers = {
             "Ocp-Apim-Subscription-Key": self.API_VISION_KEY,
-            "Content-Type":"application/json"
+            "Content-Type": "application/json" if isImageURL else "application/octet-stream"
         }
 
         # HTTP call and error handling
         try:
-            response = requests.request(method = method,url = url, headers = headers, json = json if isinstance(json, dict) else None, data = None if isinstance(json, dict) else json)
+            response = requests.request(method = method, url = url, params = params, headers = headers, json = json if isImageURL else None, data = None if isImageURL else json)
             response.raise_for_status()
             return response.json()
 
@@ -49,12 +58,12 @@ class ImageAnalysisClient():
             print("Invalid Request: {}".format(error))
             raise
 
-    def image_analysis(self, image, features):
+    def image_analysis(self, image, features, language = "en", smartcrops_aspect_ratios = ""):
         
-        endpoint = self.get_endpoint(features)
+        endpoint, query_params = self.get_endpoint(features, language, smartcrops_aspect_ratios)
         payload = {"url": image} if isinstance(image, str) else open(image, "rb").read()
 
-        response = self.send_request("POST", endpoint, payload)
+        response = self.send_request(method = "POST", url = endpoint, params = query_params, json = payload)
 
         return response
 
