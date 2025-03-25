@@ -34,8 +34,8 @@ class ImageAnalysisClient():
                 }
             )
 
-        self.API_VISION_ENDPOINT = "{}computervision/imageanalysis:analyze".format(self.API_VISION_ENDPOINT)
-        return self.API_VISION_ENDPOINT, query_params
+        endpoint = "{}computervision/imageanalysis:analyze".format(self.API_VISION_ENDPOINT)
+        return endpoint, query_params
     
 
     # Configure HTTP request
