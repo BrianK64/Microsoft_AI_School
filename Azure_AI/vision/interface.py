@@ -2,9 +2,13 @@ import gradio as gr
 from image_analysis import ImageAnalysisClient
 from PIL import Image, ImageDraw
 
-def draw_image(image_path):
+def draw_image(image_path, features, response_json):
     image = Image.open(image_path)
     draw = ImageDraw.Draw(image)
+
+    for feature in features:
+        result_object = response_json["{}Result".format(feature)]
+        
 
     return Image
 
@@ -17,6 +21,7 @@ def main():
     with gr.Blocks() as main:
 
         def change_image(image_path, features, language, smartcrops_aspect_ratios):
+            print("Changing image")
 
             if image_path:
                 response_json = client.image_analysis(image = image_path, features = features, language = language, smartcrops_aspect_ratios = smartcrops_aspect_ratios)
