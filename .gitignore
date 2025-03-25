@@ -18,3 +18,4 @@ Azure_AI/language/.env
 Azure_AI/main/.env
 
 Azure_AI/vision/.env
+Azure_AI/vision/sample/.env
