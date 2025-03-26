@@ -118,10 +118,10 @@ class CustomVisionClient():
 
         for tag in existing_tags:
             if tag.name == "fork":
-                print("The tag 'fork' already existing in this project.")
+                print("The tag 'fork' already exists in this project.")
                 fork_tag = tag
             elif tag.name == "scissors":
-                print("The tag 'scissors' already exsting in this project.")
+                print("The tag 'scissors' already exists in this project.")
                 scissors_tag = tag
 
         if fork_tag is None:
@@ -136,10 +136,22 @@ class CustomVisionClient():
     
 
     def upload_image(self):
-        with open("Azure_AI/vision/custom_vision/src/images/forks/fork_1.jpg", "rb") as image:
-            image_data = image.read()
 
-        print(image_data)
+        images = list()
+
+        for file_name in coordinates.fork_image_regions.keys():
+            with open("Azure_AI/vision/custom_vision/src/images/forks/{}.jpg".format(file_name), "rb") as image:
+                image_data = image.read()
+                images.append(image_data)
+                print("{}.jpg added to the list".format(file_name))
+
+        for file_name in coordinates.scissors_image_regions.keys():
+            with open("Azure_AI/vision/custom_vision/src/images/scissors/{}.jpg".format(file_name), "rb") as image:
+                image_data = image.read()
+                images.append(image_data)
+                print("{}.jpg added to the list".format(file_name))
+
+        print(len(images))
 
 
 if __name__ == "__main__":
