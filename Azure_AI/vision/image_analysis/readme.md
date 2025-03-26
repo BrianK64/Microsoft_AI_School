@@ -1,4 +1,4 @@
-# Microsoft Azure AI Services - Computer Vision Documentation
+# Microsoft Azure AI Services - Computer Vision - Image Analysis Documentation
 Disclaimer: This documentation is an user-friendly quickstart for personal development, experiments, and deployment. Please refer to the official Microsoft Azure Documentation for more concise and technical support.
 
 ## Table of Contents
