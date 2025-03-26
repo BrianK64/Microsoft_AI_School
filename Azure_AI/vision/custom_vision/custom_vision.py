@@ -5,6 +5,7 @@ from azure.cognitiveservices.vision.customvision.training.models import ImageFil
 from msrest.authentication import ApiKeyCredentials
 from dotenv import load_dotenv
 import os, time, uuid
+from src import coordinates
 
 
 # Custom Vision
@@ -132,6 +133,13 @@ class CustomVisionClient():
             scissors_tag = self.trainer.create_tag(project_id = project_id, name = "scissors")
 
         return fork_tag.id, scissors_tag.id
+    
+
+    def upload_image(self):
+        with open("Azure_AI/vision/custom_vision/src/images/forks/fork_1.jpg", "rb") as image:
+            image_data = image.read()
+
+        print(image_data)
 
 
 if __name__ == "__main__":
@@ -146,3 +154,5 @@ if __name__ == "__main__":
     
     client.get_tags(project_name)
     client.validate_tags(project_name, ())
+
+    client.upload_image()
