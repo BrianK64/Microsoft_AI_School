@@ -118,7 +118,7 @@ class CustomVisionClient():
         for tag in existing_tags:
             if tag.name == "fork":
                 print("The tag 'fork' already existing in this project.")
-                fort_tag = tag
+                fork_tag = tag
             elif tag.name == "scissors":
                 print("The tag 'scissors' already exsting in this project.")
                 scissors_tag = tag
