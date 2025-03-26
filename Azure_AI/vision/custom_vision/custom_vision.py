@@ -136,6 +136,11 @@ class CustomVisionClient():
     
 
     def upload_image(self, project_name):
+        # TODO: implementation for general cases
+        """
+        require user defined coordinates metadata in ./src/coordinates.py
+        require image dataset i ./src/images 
+        """
         
         project_id = self.validate_project(project_name)[0]
         fork_tag, scissors_tag = self.validate_tags(project_name, ())
@@ -194,6 +199,7 @@ class CustomVisionClient():
         response = self.trainer.publish_iteration(project_id = project_id, iteration_id = iteration_id, publish_name = publish_name, prediction_id = self.API_CUSTOM_VISION_PREDICTION_RESOURCE_ID)
         
         return response
+    
     
 
 if __name__ == "__main__":
