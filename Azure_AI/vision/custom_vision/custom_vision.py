@@ -196,17 +196,32 @@ class CustomVisionClient():
     
 
     def publish(self, project_id, iteration_id, publish_name):
+
         response = self.trainer.publish_iteration(project_id = project_id, iteration_id = iteration_id, publish_name = publish_name, prediction_id = self.API_CUSTOM_VISION_PREDICTION_RESOURCE_ID)
         
         return response
     
 
-    def predict(self):
+    def predict(self, project_id, publish_name):
         #TODO: implementation for general cases
         """
         test image dataset in ./src/images/test/
         """
-    
+
+        with open("Azure_AI/vision/custom_vision/src/images/test/test_image.jpg", "rb") as image:
+            image_data = image.read()
+
+        response = self.predictor.detect_image(project_id = project_id, published_name = publish_name, image_data = image_data)
+
+        for prediction in response.predictions:
+            tag_name = prediction.tag_name
+            probability = prediction.probability
+            bounding_box = prediction.bounding_box
+
+            if probability > 0.5:
+                print("{}: {:0.2f}%".format(tag_name, probability * 100))
+                print(bounding_box)
+
 
 if __name__ == "__main__":
     client = CustomVisionClient()
@@ -228,3 +243,5 @@ if __name__ == "__main__":
     publish_name = "6a009-objectDetection-v1"
     response = client.publish(project_id, iteration.id, publish_name = publish_name)
     print(response)
+
+    client.predict(project_id = project_id, publish_name = publish_name)
