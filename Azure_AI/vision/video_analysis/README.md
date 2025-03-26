@@ -1,0 +1,1 @@
+# Microsoft Azure AI Services - Computer Vision - Video Analysis Documentation
