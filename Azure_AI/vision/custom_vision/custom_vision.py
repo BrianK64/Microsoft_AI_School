@@ -132,26 +132,40 @@ class CustomVisionClient():
             print("Creating new tag 'scissors'")
             scissors_tag = self.trainer.create_tag(project_id = project_id, name = "scissors")
 
-        return fork_tag.id, scissors_tag.id
+        return fork_tag, scissors_tag
     
 
-    def upload_image(self):
+    def upload_image(self, project_name):
+        
+        project_id = self.validate_project(project_name)[0]
+        fork_tag, scissors_tag = self.validate_tags(project_name, ())
 
         images = list()
 
         for file_name in coordinates.fork_image_regions.keys():
             with open("Azure_AI/vision/custom_vision/src/images/forks/{}.jpg".format(file_name), "rb") as image:
+                x, y, w, h = coordinates.fork_image_regions[file_name]
+                regions = [Region(tag_id = fork_tag.id, left = x, top = y, width = w, height = h )]
                 image_data = image.read()
-                images.append(image_data)
-                print("{}.jpg added to the list".format(file_name))
+                images.append(ImageFileCreateEntry(name = file_name, contents = image_data, regions = regions))
 
         for file_name in coordinates.scissors_image_regions.keys():
             with open("Azure_AI/vision/custom_vision/src/images/scissors/{}.jpg".format(file_name), "rb") as image:
+                x, y, w, h = coordinates.scissors_image_regions[file_name]
+                regions = [Region(tag_id = scissors_tag.id, left = x, top = y, width = w, height = h )]
                 image_data = image.read()
-                images.append(image_data)
-                print("{}.jpg added to the list".format(file_name))
+                images.append(ImageFileCreateEntry(name = file_name, contents = image_data, regions = regions))
 
-        print(len(images))
+        batch = ImageFileCreateBatch(images = images)
+        response = self.trainer.create_images_from_files(project_id = project_id, batch = batch)
+
+        if response.is_batch_successful:
+            print("Succeeded")
+        else:
+            for image in response.images:
+                print("{}: {}".format(image.source_url, image.status))
+                
+        return response
 
 
 if __name__ == "__main__":
@@ -167,4 +181,5 @@ if __name__ == "__main__":
     client.get_tags(project_name)
     client.validate_tags(project_name, ())
 
-    client.upload_image()
+    client.upload_image(project_name)
+    
