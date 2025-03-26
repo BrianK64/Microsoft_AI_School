@@ -2,9 +2,10 @@
 from azure.cognitiveservices.vision.customvision.training import CustomVisionTrainingClient
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
 from azure.cognitiveservices.vision.customvision.training.models import ImageFileCreateBatch, ImageFileCreateEntry, Region
+from azure.cognitiveservices.vision.customvision.training.models import ExportPlatform
 from msrest.authentication import ApiKeyCredentials
 from dotenv import load_dotenv
-import os, time, uuid
+import os, time, uuid, requests
 from src import coordinates
 
 
@@ -223,6 +224,21 @@ class CustomVisionClient():
                 print(bounding_box)
 
 
+    def export(self, project_id, iteration_id):
+        #export = self.trainer.export_iteration(project_id = project_id, iteration_id = iteration_id, platform = ExportPlatform.onnx)
+        #print(export)
+        
+        exports = self.trainer.get_exports(project_id = project_id, iteration_id = iteration_id)
+        export = exports[-1]
+
+        response = requests.get(export.download_uri)
+
+        
+
+        return export
+
+
+
 if __name__ == "__main__":
     client = CustomVisionClient()
     client.get_project()
@@ -241,7 +257,10 @@ if __name__ == "__main__":
     iteration = client.train(project_name)
 
     publish_name = "6a009-objectDetection-v1"
-    response = client.publish(project_id, iteration.id, publish_name = publish_name)
-    print(response)
+    #response = client.publish(project_id, iteration.id, publish_name = publish_name)
+    #print(response)
 
     client.predict(project_id = project_id, publish_name = publish_name)
+
+    export = client.export(project_id = project_id, iteration_id = iteration.id)
+    print(export)
