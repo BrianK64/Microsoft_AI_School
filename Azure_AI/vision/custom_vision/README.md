@@ -46,3 +46,7 @@
     - `VISION_PREDICTION_KEY`
     - `VISION_PREDICTION_ENDPOINT`
     - `VISION_PREDICTION_RESOURCE_ID`
+
+
+## References
+[Custom Vision SDK](https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/quickstarts/object-detection?tabs=windows%2Cvisual-studio&pivots=programming-language-python)
