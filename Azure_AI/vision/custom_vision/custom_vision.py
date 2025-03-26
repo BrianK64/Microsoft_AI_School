@@ -187,8 +187,14 @@ class CustomVisionClient():
 
         print("Completed")
 
-        return iteration        
+        return iteration
+    
 
+    def publish(self, project_id, iteration_id, publish_name):
+        response = self.trainer.publish_iteration(project_id = project_id, iteration_id = iteration_id, publish_name = publish_name, prediction_id = self.API_CUSTOM_VISION_PREDICTION_RESOURCE_ID)
+        
+        return response
+    
 
 if __name__ == "__main__":
     client = CustomVisionClient()
@@ -205,4 +211,8 @@ if __name__ == "__main__":
 
     client.upload_image(project_name)
     
-    client.train(project_name)
+    iteration = client.train(project_name)
+
+    publish_name = "6a009-objectDetection-v1"
+    response = client.publish(project_id, iteration.id, publish_name = publish_name)
+    print(response)
