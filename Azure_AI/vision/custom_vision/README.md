@@ -39,7 +39,7 @@
 
 3. Create environment variables
 
-    A total of five authentication credentials are required
+    These authentical credentials are required to utilize full functionalities of Custom Vision
 
     - `VISION_TRAINING_KEY`
     - `VISION_TRAINING_ENDPOINT`
