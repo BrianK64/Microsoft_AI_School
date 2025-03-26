@@ -68,7 +68,7 @@ class CustomVisionClient():
             else:
                 project = self.trainer.create_project(project_name, project_description, domain_id)
 
-        return project.name, project.id
+        return project.id
 
     
     def validate_project(self, project_name):
@@ -88,6 +88,52 @@ class CustomVisionClient():
         return project_id, domain_id
 
 
+    def get_tags(self, project_name):
+        project_id = self.validate_project(project_name)[0]
+
+        tag_list = self.trainer.get_tags(project_id = project_id)
+        
+        return tag_list
+    
+
+    def validate_tags(self, project_name, *tags):
+        # TODO: implementations for general cases
+        """
+        tags = dict()
+
+        for tag in tags:
+            tags.update(
+                {
+                    f"tag": None
+                }
+            )
+
+        """
+        project_id = self.validate_project(project_name)[0]
+        existing_tags = self.get_tags(project_name)
+
+        fork_tag = None
+        scissors_tag = None
+
+        for tag in existing_tags:
+            if tag.name == "fork":
+                print("The tag 'fork' already existing in this project.")
+                fort_tag = tag
+            elif tag.name == "scissors":
+                print("The tag 'scissors' already exsting in this project.")
+                scissors_tag = tag
+
+        if fork_tag is None:
+            print("Creating new tag: 'fork'")
+            fork_tag = self.trainer.create_tag(project_id = project_id, name = "fork")
+        
+        if scissors_tag is None:
+            print("Creating new tag 'scissors'")
+            scissors_tag = self.trainer.create_tag(project_id = project_id, name = "scissors")
+
+        return fork_tag.id, scissors_tag.id
+
+
 if __name__ == "__main__":
     client = CustomVisionClient()
     client.get_project()
@@ -95,5 +141,8 @@ if __name__ == "__main__":
     # Project Creation
     project_name = "6a009-objectDetection-model"
     project_description = "Custom Vision Object Detection Project"
-    project_name, project_id = client.set_project(project_name = project_name, project_description = project_description)
+    project_id = client.set_project(project_name = project_name, project_description = project_description)
     print(project_name, project_id)
+    
+    client.get_tags(project_name)
+    client.validate_tags(project_name, ())
