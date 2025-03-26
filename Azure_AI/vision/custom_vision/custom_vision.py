@@ -166,6 +166,28 @@ class CustomVisionClient():
                 print("{}: {}".format(image.source_url, image.status))
                 
         return response
+    
+
+    def train(self, project_name):
+
+        project_id = self.validate_project(project_name)[0]
+        
+        iterations = self.trainer.get_iterations(project_id = project_id)
+
+        if len(iterations) > 0:
+            iteration = iterations[0]
+
+        else:
+            iteration = self.trainer.train_project(project_id = project_id)
+
+        while iteration.status == "Training":
+            iteration = self.trainer.get_iteration(project_id = project_id, iteration_id = iteration.id)
+            print("Training Status: {}".format(iteration.status))
+            time.sleep(5)
+
+        print("Completed")
+
+        return iteration        
 
 
 if __name__ == "__main__":
@@ -183,3 +205,4 @@ if __name__ == "__main__":
 
     client.upload_image(project_name)
     
+    client.train(project_name)
