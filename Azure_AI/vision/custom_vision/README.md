@@ -21,9 +21,21 @@
 
 1. Installing the client library
     
-    run the following command in PowerShell or a console window
+    Run the following command in PowerShell or a console window
 
     `pip install azure-cognitiveservices-vision-customvision`
+
+2. Importing required libraries
+
+    Create a new Python file and import the following libraries.
+
+    ```python
+    from azure.cognitiveservices.vision.customvision.training import CustomVisionTrainingClient
+    from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
+    from azure.cognitiveservices.vision.customvision.training.models import ImageFileCreateBatch, ImageFileCreateEntry, Region
+    from msrest.authentication import ApiKeyCredentials
+    import os, time, uuid
+    ```
 
 3. Create environment variables
 
