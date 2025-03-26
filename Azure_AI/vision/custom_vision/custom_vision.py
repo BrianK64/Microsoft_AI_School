@@ -200,6 +200,12 @@ class CustomVisionClient():
         
         return response
     
+
+    def predict(self):
+        #TODO: implementation for general cases
+        """
+        test image dataset in ./src/images/test/
+        """
     
 
 if __name__ == "__main__":
