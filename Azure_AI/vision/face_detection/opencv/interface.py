@@ -1,5 +1,5 @@
 import gradio as gr
-from face_detection import FaceDetectionClient
+from Azure_AI.vision.face_detection.opencv.face_detection import FaceDetectionClient
 
 def main():
 
