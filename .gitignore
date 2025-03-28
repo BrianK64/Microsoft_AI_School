@@ -22,3 +22,4 @@ Azure_AI/vision/image_analysis/.env
 Azure_AI/vision/video_analysis/.env
 
 Azure_AI/vision/custom_vision/.env
+Azure_AI/vision/face_detection/.env
